@@ -1,6 +1,5 @@
 import java.util.Objects;
 import java.util.Random;
-
 public class Main {
 
     static Random random = new Random();
@@ -34,9 +33,12 @@ public class Main {
             { 3 , 3 , 1 , 0 },
             { 4 , 4 , 1 , 0 },
     };
-    public static int[] jugadorExpulsat = new int[1];
 
-    public static int idUsuari = random.nextInt(jugadors.length);
+    /**
+     * Aquest métode el que fa és retornar la posició del diccionari sobre el que volem buscar.
+     * @param buscar Aquí posem el que volem buscar, ex: esta_viu seria = 2.
+     * @return retorna un int amb la posició del element que volem buscar.
+     */
     public static int buscarId(String buscar){
         boolean trobat = false;
         int i = -1;
@@ -49,6 +51,69 @@ public class Main {
 
         return i;
     }
+
+    /**
+     * Aquest array jugadorExpulsat, conté els jugadors que ja no participan en
+     * la partida, ordenats per ordre d'expulsió / mort.
+     */
+    public static int[] jugadorExpulsat = new int[1];
+
+    /**
+     * Aqueste int el que fa es retornar l'ID del usuari.
+     */
+    public static int idUsuari = random.nextInt(jugadors.length);
+
+    /**
+     * Aquest métode converteix els ID's dels usuaris en un String amb el nom del seu rol
+     * @return retorna el nóm del rol de l'usuari.
+     */
+    public static String rolUsuari(){
+        return switch (idUsuari) {
+            case 0, 1 -> "Aledano";
+            case 2 -> "Lobo";
+            case 3 -> "Cupido";
+            case 4 -> "Cazador";
+            default -> "";
+        };
+    }
+
+    /**
+     * Aquest int és un contador de les nits.
+     */
+    public static int nits = 0;
+
+    /**
+     * Aquest métode retorna els noms dels poders dels rols ( convertits abans en el métode rolUsuari()
+     * en funció de cada rol.
+     * @return retorna un String amb el nom del poder.
+     */
+    public static String poderRols(){
+        String rol = rolUsuari();
+        return switch (rol) {
+            case "Aldeano" -> "";
+            case "Lobo" -> "Matar";
+            case "Cupido" -> "Enamorar";
+            case "Cazador" -> "Venganza";
+            default -> "";
+        };
+    }
+
+    /**
+     * @return Métode el Desenvolupament
+     */
+    public static int[] nit(){
+        int rolJugadorPrincipal = jugadors[idUsuari][1];
+        int idJugadorPrincipal = idUsuari;
+        int nitPartida = nits;
+
+        if ( nitPartida == 0 ){
+            // Hi ha cupido
+        } else{
+            // Segona nit en endevant
+        }
+
+    }
+
     public static void main(String[] args) {
 
     }
