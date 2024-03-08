@@ -35,8 +35,18 @@ public class Main {
             { 4 , 4 , 1 , 0 },
     };
     public static int[] jugadorExpulsat = new int[1];
-
     public static int idUsuari = random.nextInt(jugadors.length);
+
+    public static String rolUsuari(int idUsuari){
+        return switch (idUsuari) {
+            case 0, 1 -> "Aledano";
+            case 2 -> "Lobo";
+            case 3 -> "Cupido";
+            case 4 -> "Cazador";
+            default -> "";
+        };
+    }
+
     public static int buscarId(String buscar){
         boolean trobat = false;
         int i = -1;
