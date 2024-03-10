@@ -126,7 +126,16 @@ public class Main {
                     break;
             }
         } else{
-            // Segona nit en endevant
+            switch (poderRols()){
+                case "Matar":
+                    llop();
+                    break;
+                case "Enamorar":
+                case "":
+                case "Venganza":
+                default:
+                    break;
+            }
         }
 
     }
@@ -158,7 +167,7 @@ public class Main {
         jugadors[idJugadorMort][2] = 0;
     }
     public static void main(String[] args) {
-        llop();
+
     }
 
     /*public static int cupido(){
