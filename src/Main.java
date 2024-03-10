@@ -1,8 +1,11 @@
 import java.util.Objects;
 import java.util.Random;
+import java.util.Scanner;
+
 public class Main {
 
     static Random random = new Random();
+    static Scanner scanner = new Scanner(System.in);
 
     public static String[] diccionari = {"id", "rol", "esta_viu", "enamorat"};
 
@@ -105,9 +108,23 @@ public class Main {
         int rolJugadorPrincipal = jugadors[idUsuari][1];
         int idJugadorPrincipal = idUsuari;
         int nitPartida = nits;
+        boolean ha_enamorat = false;
 
         if ( nitPartida == 0 ){
             // Hi ha cupido
+            switch (poderRols()){
+                case "Matar":
+                    // Cridar Métode del Llop
+                    break;
+                case "Enamorar":
+                    // Cridar Métode del Cupido
+                    ha_enamorat = true;
+                    break;
+                case "":
+                case "Venganza":
+                default:
+                    break;;
+            }
         } else{
             // Segona nit en endevant
         }
@@ -115,6 +132,45 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
+    }
+
+    public static void llop(){
+        System.out.println("Com ets ell llop, has de triar a un dels jugadors per matar aquesta nit els jugadors vius són: ");
+        for(int i=0; i<jugadors.length; i++){
+            if(jugadors[i][2] == 1 && jugadors[i][0] != idUsuari){
+                System.out.println(jugadors[i][0]);
+            }
+        }
+        if(scanner.hasNextInt()) {
+            for (int i = 0; i < jugadors.length; i++) {
+                if(jugadors[i][2] == 1 && jugadors[i][0] != idUsuari){
+                    int idJugadorMort = scanner.nextInt();
+                }
+            }
+        }
+    }
+
+    public static int cupido(){
+        int enamorat1;
+        int enamorat2;
+
+        System.out.println("Hola Cupido, has de triar els dos jugadors enamorats!");
+        System.out.println("Hauràs de triar entre tots els jugadors, tú també.");
+        System.out.println("Tria un número del 1 al 5 per seleccionar el primer enamorat: ");
+
+        if (scanner.hasNextInt()) {
+            enamorat1 = scanner.nextInt();
+        }
+
+        do {
+            System.out.println("Tria un altre número (diferent) del 1 al 5 per al segon enamorat: ");
+
+            if (scanner.hasNextInt()) {
+                enamorat2 = scanner.nextInt();
+            }
+
+        } while ();
 
     }
 }
