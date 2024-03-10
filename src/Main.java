@@ -104,7 +104,9 @@ public class Main {
     /**
      * @return Métode el Desenvolupament
      */
-   /* public static int[] nit(){
+
+    public static void nit(){
+
         int rolJugadorPrincipal = jugadors[idUsuari][1];
         int idJugadorPrincipal = idUsuari;
         int nitPartida = nits;
@@ -114,7 +116,7 @@ public class Main {
             // Hi ha cupido
             switch (poderRols()){
                 case "Matar":
-                    // Cridar Métode del Llop
+                    llop();
                     break;
                 case "Enamorar":
                     // Cridar Métode del Cupido
@@ -123,34 +125,57 @@ public class Main {
                 case "":
                 case "Venganza":
                 default:
-                    break;;
+                    break;
             }
         } else{
-            // Segona nit en endevant
+            switch (poderRols()){
+                case "Matar":
+                    llop();
+                    break;
+                case "Enamorar":
+                case "":
+                case "Venganza":
+                default:
+                    break;
+            }
         }
 
-    }*/
-
-    public static void main(String[] args) {
-        cupido();
     }
 
+    /**
+     * Aquest es el métode del Llop
+     */
     public static void llop(){
-        System.out.println("Com ets ell llop, has de triar a un dels jugadors per matar aquesta nit els jugadors vius són: ");
+        int idJugadorMort;
+        boolean jugadorMort = false;
+
+        System.out.println("Ets el jugador " + idUsuari + "\nCom ets ell llop, has de triar a un dels jugadors per matar aquesta nit els jugadors vius són: ");
         for(int i=0; i<jugadors.length; i++){
             if(jugadors[i][2] == 1 && jugadors[i][0] != idUsuari){
                 System.out.println(jugadors[i][0]);
             }
         }
-        if(scanner.hasNextInt()) {
+        do {
+            idJugadorMort = scanner.nextInt();
             for (int i = 0; i < jugadors.length; i++) {
-                if(jugadors[i][2] == 1 && jugadors[i][0] != idUsuari){
-                    int idJugadorMort = scanner.nextInt();
+                if(jugadors[i][0] == idJugadorMort && jugadors[i][2] == 1 && idJugadorMort != idUsuari){
+                    jugadorMort = true;
+                    break;
                 }
             }
-        }
+            if (!jugadorMort) {
+                System.out.println("No pots matar aquest jugador amb aquest ID, intenteu de nou :)");
+            }
+        } while (!jugadorMort);
+
+        System.out.println("Has triat matar al jugador " + idJugadorMort);
+        jugadors[idJugadorMort][2] = 0;
     }
 
+
+    /**
+     * Aquest es el mètode del Cupido
+     */
     public static void cupido(){
         int enamorat1 = 0;
         int enamorat2 = 0;
@@ -195,4 +220,8 @@ public class Main {
         }
 
     }
+    public static void main(String[] args) {
+
+    }
+
 }
