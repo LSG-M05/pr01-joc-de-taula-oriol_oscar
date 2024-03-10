@@ -104,7 +104,7 @@ public class Main {
     /**
      * @return Métode el Desenvolupament
      */
-    public static int[] nit(){
+   /* public static int[] nit(){
         int rolJugadorPrincipal = jugadors[idUsuari][1];
         int idJugadorPrincipal = idUsuari;
         int nitPartida = nits;
@@ -129,10 +129,10 @@ public class Main {
             // Segona nit en endevant
         }
 
-    }
+    }*/
 
     public static void main(String[] args) {
-
+        cupido();
     }
 
     public static void llop(){
@@ -151,26 +151,48 @@ public class Main {
         }
     }
 
-    public static int cupido(){
-        int enamorat1;
-        int enamorat2;
+    public static void cupido(){
+        int enamorat1 = 0;
+        int enamorat2 = 0;
 
         System.out.println("Hola Cupido, has de triar els dos jugadors enamorats!");
-        System.out.println("Hauràs de triar entre tots els jugadors, tú també.");
-        System.out.println("Tria un número del 1 al 5 per seleccionar el primer enamorat: ");
-
-        if (scanner.hasNextInt()) {
-            enamorat1 = scanner.nextInt();
-        }
+        System.out.println("Hauràs de triar entre les IDs de tots els jugadors, la teva també.");
 
         do {
-            System.out.println("Tria un altre número (diferent) del 1 al 5 per al segon enamorat: ");
+            System.out.println("Tria un número del 0 al 4 per seleccionar la ID del primer enamorat: ");
+
+            if (scanner.hasNextInt()) {
+                enamorat1 = scanner.nextInt();
+            }
+
+            if (enamorat1 > 4 || enamorat1 < 0) {
+                System.out.println("Error, ID fora de rang.");
+            }
+        } while (enamorat1 > 4 || enamorat1 < 0);
+
+        do {
+            System.out.println("Tria un altre número (diferent) del 0 al 4 per la ID del segon enamorat: ");
 
             if (scanner.hasNextInt()) {
                 enamorat2 = scanner.nextInt();
             }
 
-        } while ();
+            if (enamorat2 == enamorat1) {
+                System.out.println("Un jugador no es pot enamorar d'ell mateix!");
+            }
+
+        } while (enamorat2 == enamorat1 || (enamorat2 > 4 || enamorat2 < 0));
+
+        // Canviar el valor "enamorat" de 0 a 1 del array dels jugadors escollits
+        jugadors [enamorat1][3] = 1;
+        jugadors [enamorat2][3] = 1;
+
+        for (int i = 0; i < jugadors.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(jugadors[i][j] + " ");
+            }
+            System.out.println(" ");
+        }
 
     }
 }
