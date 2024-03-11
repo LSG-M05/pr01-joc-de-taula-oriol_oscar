@@ -146,7 +146,7 @@ public class Main {
 
 
     public static void dia(){
-        System.out.println("\n\n\n\n\n\n\n\n\nLa nit ha acabat, i això ha sigut el que ha pasat.");
+        System.out.println("La nit ha acabat, i això ha sigut el que ha pasat.");
         System.out.println("Ha mort el jugador amb l'ID " + idDerrerJugadorMort + " i el seu rol era " + rolUsuari(jugadors[idDerrerJugadorMort][1]));
         if(jugadors[idDerrerJugadorMort][3] == 1){
             System.out.println("A part de aquesta mort, aquest jugador estaba enamorat d'un altre jugador, aixi que també hi ha una altre mort...");
@@ -172,6 +172,7 @@ public class Main {
     public static void llop(){
         int idJugadorMort;
         boolean jugadorMort = false;
+        boolean jugadorEncontrado = false;
 
         System.out.println("Ets el jugador " + idUsuari + "\nCom ets ell llop, has de triar a un dels jugadors per matar aquesta nit els jugadors vius són: ");
         for(int i=0; i<jugadors.length; i++){
@@ -185,18 +186,19 @@ public class Main {
                 for (int i = 0; i < jugadors.length; i++) {
                     if(jugadors[i][0] == idJugadorMort && jugadors[i][2] == 1 && idJugadorMort != idUsuari){
                         System.out.println("Has triat matar al jugador " + idJugadorMort);
-                        jugadors[idJugadorMort][2] = 0;
+                        jugadors[i][2] = 0; // Corregir esta línea para usar 'i' en lugar de 'idJugadorMort'
                         idDerrerJugadorMort = idJugadorMort;
                         jugadorMort = true;
+                        jugadorEncontrado = true; // Indica que hemos encontrado y procesado al jugador
                         break;
                     }
-                    else {
-                        System.out.println("No pots matar aquest jugador amb aquest ID, intenteu de nou :)");
-                        scanner.nextLine();
-                    }
+                }
+
+                if (!jugadorEncontrado) { // Verificar después del bucle for
+                    System.out.println("No pots matar aquest jugador amb aquest ID");
                 }
             } else {
-                System.out.println("Ha de ser un número enter, intenteu de nou :)");
+                System.out.println("No pots matar aquest jugador amb aquest ID, ha de ser un número enter, intenteu de nou :)");
                 scanner.nextLine();
             }
         } while (!jugadorMort);
