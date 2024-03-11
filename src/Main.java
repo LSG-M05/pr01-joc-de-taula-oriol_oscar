@@ -67,6 +67,7 @@ public class Main {
     public static int idUsuari = random.nextInt(jugadors.length);
     public static int idDerrerJugadorMort = -1;
     public static int contadorPartida = 0;
+    public static boolean continuaPartida = true;
 
     /**
      * Aquest métode converteix els ID's dels usuaris en un String amb el nom del seu rol
@@ -105,7 +106,9 @@ public class Main {
     /**
      * @return Métode el Desenvolupament
      */
+
     public static void nit(){
+
         int rolJugadorPrincipal = jugadors[idUsuari][1];
         int idJugadorPrincipal = idUsuari;
         int nitPartida = nits;
@@ -118,7 +121,7 @@ public class Main {
                     llop();
                     break;
                 case "Enamorar":
-                    // Cridar Métode del Cupido
+                    cupido();
                     ha_enamorat = true;
                     break;
                 case "":
@@ -141,9 +144,10 @@ public class Main {
 
     }
 
+
     public static void dia(){
         System.out.println("\n\n\n\n\n\n\n\n\nLa nit ha acabat, i això ha sigut el que ha pasat.");
-        System.out.println("Ha mort el jugador amb l'ID " + idDerrerJugadorMort + "i el seu rol era " + rolUsuari(jugadors[idDerrerJugadorMort][1]));
+        System.out.println("Ha mort el jugador amb l'ID " + idDerrerJugadorMort + " i el seu rol era " + rolUsuari(jugadors[idDerrerJugadorMort][1]));
         if(jugadors[idDerrerJugadorMort][3] == 1){
             System.out.println("A part de aquesta mort, aquest jugador estaba enamorat d'un altre jugador, aixi que també hi ha una altre mort...");
             for(int i = 0 ; i < jugadors.length ; i++ ){
@@ -160,6 +164,10 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Aquest es el métode del Llop
+     */
 
     public static void llop(){
         int idJugadorMort;
@@ -185,7 +193,6 @@ public class Main {
                     else {
                         System.out.println("No pots matar aquest jugador amb aquest ID, intenteu de nou :)");
                         scanner.nextLine();
-                        break;
                     }
                 }
             } else {
@@ -195,38 +202,130 @@ public class Main {
         } while (!jugadorMort);
     }
 
-    public static void partida(){
-        if ( contadorPartida % 2 == 0){
-            nit();
-        } else {
-            dia();
-        }
-        contadorPartida++;
-    }
-    public static void main(String[] args) {
-        llop();
-    }
 
-    /*public static int cupido(){
-        int enamorat1;
-        int enamorat2;
+    /**
+     * Aquest es el mètode del Cupido
+     */
+
+    public static void cupido(){
+        int enamorat1 = 0;
+        int enamorat2 = 0;
 
         System.out.println("Hola Cupido, has de triar els dos jugadors enamorats!");
-        System.out.println("Hauràs de triar entre tots els jugadors, tú també.");
-        System.out.println("Tria un número del 1 al 5 per seleccionar el primer enamorat: ");
-
-        if (scanner.hasNextInt()) {
-            enamorat1 = scanner.nextInt();
-        }
+        System.out.println("Hauràs de triar entre les IDs de tots els jugadors, la teva també.");
 
         do {
-            System.out.println("Tria un altre número (diferent) del 1 al 5 per al segon enamorat: ");
+            System.out.println("Tria un número del 0 al 4 per seleccionar la ID del primer enamorat: ");
+
+            if (scanner.hasNextInt()) {
+                enamorat1 = scanner.nextInt();
+            }
+
+            if (enamorat1 > 4 || enamorat1 < 0) {
+                System.out.println("Error, ID fora de rang.");
+            }
+        } while (enamorat1 > 4 || enamorat1 < 0);
+
+        do {
+            System.out.println("Tria un altre número (diferent) del 0 al 4 per la ID del segon enamorat: ");
 
             if (scanner.hasNextInt()) {
                 enamorat2 = scanner.nextInt();
             }
 
-        } while ();
+            if (enamorat2 == enamorat1) {
+                System.out.println("Un jugador no es pot enamorar d'ell mateix!");
+            }
 
-    }*/
+        } while (enamorat2 == enamorat1 || (enamorat2 > 4 || enamorat2 < 0));
+
+        // Canviar el valor "enamorat" de 0 a 1 del array dels jugadors escollits
+        jugadors [enamorat1][3] = 1;
+        jugadors [enamorat2][3] = 1;
+
+        for (int i = 0; i < jugadors.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(jugadors[i][j] + " ");
+            }
+            System.out.println(" ");
+        }
+
+    }
+
+    public static void junter() {
+        int idMartir = -1;
+        boolean martir = false;
+
+        System.out.println("T'han matat, tria la ID d'un jugador viu per efectuar la teva venjança.");
+        System.out.println("Aquestes són les IDs dels jugadors vius, escull sàviament: ");
+
+        for (int i = 0; i < jugadors.length; i++) {
+            if (jugadors[i][2] == 1 && jugadors[i][0] != idUsuari) {
+                System.out.println(jugadors[i][0]);
+            }
+        }
+
+        do {
+            if (scanner.hasNextInt()) {
+                idMartir = scanner.nextInt();
+                scanner.nextLine(); // Netegem la línia del scanner per evitar un bucle infinit
+                boolean errorInt = true; // Control d'error per ID invàlida
+
+                if (idMartir == idUsuari) {
+                    System.out.println("Error, no pots triar la teva pròpia ID. Torna-hi: ");
+
+                } else if (idMartir < 0 || idMartir > 4) {
+                    System.out.println("Error, ID fora de rang. Torna-hi: ");
+
+                } else {
+                    for (int i = 0; i < jugadors.length; i++) {
+
+                        if (jugadors[i][0] == idMartir && jugadors[i][2] == 1) {
+                            System.out.println("Has triat matar al jugador " + idMartir);
+                            jugadors[i][2] = 0;
+                            martir = true;
+                            errorInt = false;
+                            break;
+                        }
+                    }
+                    if (errorInt) {
+                        System.out.println("Error, no pots matar aquest jugador. Torna-hi: ");
+                    }
+                }
+            } else {
+                System.out.println("Error, la ID és un número enter. Torna-hi: ");
+                scanner.nextLine(); // Netegem la línia del scanner per evitar un bucle infinit
+            }
+
+        } while (!martir);
+
+        // Mostrar l'estat actual dels jugadors després de la mort
+        System.out.println("Estat dels jugadors:");
+
+        for (int i = 0; i < jugadors.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(jugadors[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void partida(){
+        do {
+
+            if (contadorPartida % 2 == 0) {
+                nit();
+            } else {
+                dia();
+            }
+            contadorPartida++;
+
+        }while (continuaPartida);
+    }
+
+
+    public static void main(String[] args) {
+        partida();
+    }
+
 }
