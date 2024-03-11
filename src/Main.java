@@ -20,7 +20,7 @@ public class Main {
                 1 --> Aledeano (2)
                 2 --> Lobo (1)
                 3 --> Cupído (1)
-                4 --> Cazador (1)
+                4 --> Caçador (1)
 
             ESTA_VIU -->
                 El número 1 vol dir que el jugador està viu, i el 0 vol dir que està mort.
@@ -65,17 +65,19 @@ public class Main {
      * Aqueste int el que fa es retornar l'ID del usuari.
      */
     public static int idUsuari = random.nextInt(jugadors.length);
+    public static int idDerrerJugadorMort = -1;
+    public static int contadorPartida = 0;
 
     /**
      * Aquest métode converteix els ID's dels usuaris en un String amb el nom del seu rol
      * @return retorna el nóm del rol de l'usuari.
      */
-    public static String rolUsuari(){
-        return switch (idUsuari) {
+    public static String rolUsuari(int idRolADescubrir){
+        return switch (idRolADescubrir) {
             case 0, 1 -> "Aledano";
             case 2 -> "Lobo";
             case 3 -> "Cupido";
-            case 4 -> "Cazador";
+            case 4 -> "Caçador";
             default -> "";
         };
     }
@@ -90,13 +92,12 @@ public class Main {
      * en funció de cada rol.
      * @return retorna un String amb el nom del poder.
      */
-    public static String poderRols(){
-        String rol = rolUsuari();
-        return switch (rol) {
-            case "Aldeano" -> "";
-            case "Lobo" -> "Matar";
-            case "Cupido" -> "Enamorar";
-            case "Cazador" -> "Venganza";
+    public static String poderRols(int idRolADescubrir){
+        return switch (idRolADescubrir) {
+            case 0, 1 -> "";
+            case 2 -> "Matar";
+            case 3 -> "Enamorar";
+            case 4 -> "Venganza";
             default -> "";
         };
     }
@@ -112,7 +113,7 @@ public class Main {
 
         if ( nitPartida == 0 ){
             // Hi ha cupido
-            switch (poderRols()){
+            switch (poderRols(idJugadorPrincipal)){
                 case "Matar":
                     llop();
                     break;
@@ -126,7 +127,7 @@ public class Main {
                     break;
             }
         } else{
-            switch (poderRols()){
+            switch (poderRols(idJugadorPrincipal)){
                 case "Matar":
                     llop();
                     break;
@@ -138,6 +139,26 @@ public class Main {
             }
         }
 
+    }
+
+    public static void dia(){
+        System.out.println("\n\n\n\n\n\n\n\n\nLa nit ha acabat, i això ha sigut el que ha pasat.");
+        System.out.println("Ha mort el jugador amb l'ID " + idDerrerJugadorMort + "i el seu rol era " + rolUsuari(jugadors[idDerrerJugadorMort][1]));
+        if(jugadors[idDerrerJugadorMort][3] == 1){
+            System.out.println("A part de aquesta mort, aquest jugador estaba enamorat d'un altre jugador, aixi que també hi ha una altre mort...");
+            for(int i = 0 ; i < jugadors.length ; i++ ){
+                if(jugadors[i][3] == 1 && idDerrerJugadorMort != i){
+                    System.out.println("L'altre jugador mort és el jugador amb l'ID " + i + " i el seu rol era " + jugadors[i][1]);
+                }
+            }
+        }
+        caçador();
+        System.out.println("Ara mateix queden els jugadors amb aquests rols encara:");
+        for( int i = 0 ;  i < jugadors.length ; i++ ){
+            if ( jugadors[i][2]  == 1 ){
+                System.out.println(rolUsuari(jugadors[i][0]));
+            }
+        }
     }
 
     public static void llop(){
@@ -165,9 +186,19 @@ public class Main {
 
         System.out.println("Has triat matar al jugador " + idJugadorMort);
         jugadors[idJugadorMort][2] = 0;
+        idDerrerJugadorMort = idJugadorMort;
+    }
+
+    public static void partida(){
+        if ( contadorPartida % 2 == 0){
+            nit();
+        } else {
+            dia();
+        }
+        contadorPartida++;
     }
     public static void main(String[] args) {
-
+        partida();
     }
 
     /*public static int cupido(){
