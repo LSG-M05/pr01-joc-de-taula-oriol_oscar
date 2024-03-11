@@ -20,7 +20,7 @@ public class Main {
                 1 --> Aledeano (2)
                 2 --> Lobo (1)
                 3 --> Cupído (1)
-                4 --> Caçador (1)
+                4 --> Junter (1)
 
             ESTA_VIU -->
                 El número 1 vol dir que el jugador està viu, i el 0 vol dir que està mort.
@@ -77,7 +77,7 @@ public class Main {
             case 0, 1 -> "Aledano";
             case 2 -> "Lobo";
             case 3 -> "Cupido";
-            case 4 -> "Caçador";
+            case 4 -> "Junter";
             default -> "";
         };
     }
@@ -97,7 +97,7 @@ public class Main {
             case 0, 1 -> "";
             case 2 -> "Matar";
             case 3 -> "Enamorar";
-            case 4 -> "Venganza";
+            case 4 -> "Vengança";
             default -> "";
         };
     }
@@ -152,7 +152,7 @@ public class Main {
                 }
             }
         }
-        caçador();
+        //junter();
         System.out.println("Ara mateix queden els jugadors amb aquests rols encara:");
         for( int i = 0 ;  i < jugadors.length ; i++ ){
             if ( jugadors[i][2]  == 1 ){
@@ -172,21 +172,27 @@ public class Main {
             }
         }
         do {
-            idJugadorMort = scanner.nextInt();
-            for (int i = 0; i < jugadors.length; i++) {
-                if(jugadors[i][0] == idJugadorMort && jugadors[i][2] == 1 && idJugadorMort != idUsuari){
-                    jugadorMort = true;
-                    break;
+            if(scanner.hasNextInt()){
+                idJugadorMort = scanner.nextInt();
+                for (int i = 0; i < jugadors.length; i++) {
+                    if(jugadors[i][0] == idJugadorMort && jugadors[i][2] == 1 && idJugadorMort != idUsuari){
+                        System.out.println("Has triat matar al jugador " + idJugadorMort);
+                        jugadors[idJugadorMort][2] = 0;
+                        idDerrerJugadorMort = idJugadorMort;
+                        jugadorMort = true;
+                        break;
+                    }
+                    else {
+                        System.out.println("No pots matar aquest jugador amb aquest ID, intenteu de nou :)");
+                        scanner.nextLine();
+                        break;
+                    }
                 }
-            }
-            if (!jugadorMort) {
-                System.out.println("No pots matar aquest jugador amb aquest ID, intenteu de nou :)");
+            } else {
+                System.out.println("Ha de ser un número enter, intenteu de nou :)");
+                scanner.nextLine();
             }
         } while (!jugadorMort);
-
-        System.out.println("Has triat matar al jugador " + idJugadorMort);
-        jugadors[idJugadorMort][2] = 0;
-        idDerrerJugadorMort = idJugadorMort;
     }
 
     public static void partida(){
@@ -198,7 +204,7 @@ public class Main {
         contadorPartida++;
     }
     public static void main(String[] args) {
-        partida();
+        llop();
     }
 
     /*public static int cupido(){
