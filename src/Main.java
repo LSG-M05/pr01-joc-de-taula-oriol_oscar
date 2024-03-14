@@ -119,14 +119,17 @@ public class Main {
             switch (poderRols(idJugadorPrincipal)){
                 case "Matar":
                     llop();
+                    cupidoRandom();
                     break;
                 case "Enamorar":
+                    llopRandom();
                     cupido();
                     ha_enamorat = true;
                     break;
                 case "":
                 case "Venganza":
                 default:
+                    llopRandom();
                     break;
             }
         } else{
@@ -138,12 +141,46 @@ public class Main {
                 case "":
                 case "Venganza":
                 default:
+                    llopRandom();
                     break;
             }
         }
 
     }
 
+    public static void llopRandom(){
+        int randomMort = 0;
+        boolean estaViu = false;
+        do{
+            randomMort = random.nextInt(jugadors.length);
+            if ( jugadors[randomMort][2] == 1) {
+                estaViu = true;
+            }
+        } while (!estaViu);
+
+        jugadors[randomMort][2] = 0;
+        idDerrerJugadorMort = randomMort;
+    }
+
+    public static void cupidoRandom(){
+        int randomCupido1 = 0;
+        int randomCupido2 = 0;
+
+        randomCupido1 = random.nextInt(jugadors.length);
+
+        boolean estaEnamorat = false;
+        do{
+            randomCupido2 = random.nextInt(jugadors.length);
+            if ( jugadors[randomCupido1][0] != jugadors[randomCupido2][0]) {
+                estaEnamorat = true;
+            }
+        } while (!estaEnamorat);
+
+
+        jugadors[randomCupido1][3] = 1;
+        jugadors[randomCupido2][3] = 1;
+
+    }
 
     public static void dia(){
         System.out.println("La nit ha acabat, i això ha sigut el que ha pasat.");
