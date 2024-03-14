@@ -221,56 +221,6 @@ public class Main {
 
     }
 
-    /*public static void junter() {
-        int idMartir = -1;
-        boolean martir = false;
-
-        System.out.println("T'han matat, tria la ID d'un jugador viu per efectuar la teva venjança.");
-        System.out.println("Aquestes són les IDs dels jugadors vius, escull sàviament: ");
-
-        for (int i = 0; i < jugadors.length; i++) {
-            if (jugadors[i][2] == 1 && jugadors[i][0] != idUsuari) {
-                System.out.println(jugadors[i][0]);
-            }
-        }
-
-        do {
-            if (scanner.hasNextInt()) {
-                idMartir = scanner.nextInt();
-                boolean errorInt = true; // Control d'error per ID invàlida
-
-                for (int i = 0; i < jugadors.length; i++) {
-                    if (jugadors[i][0] == idMartir && jugadors[i][2] == 1 && idMartir != idUsuari) {
-                        System.out.println("Has triat matar al jugador " + idMartir);
-                        jugadors[i][2] = 0;
-                        martir = true;
-                        errorInt = false;
-                        break;
-                    } else if (idMartir == idUsuari) {
-                        System.out.println("Error, no pots triar la teva pròpia ID. Torna-hi: ");
-                        break;
-                    } else if (idMartir < 0 || idMartir > 4) {
-                        System.out.println("Error, ID fora de rang. Torna-hi: ");
-                        break;
-                    }
-                }
-            } else {
-                System.out.println("Error, la ID és un número enter. Torna-hi: ");
-                scanner.nextLine(); // Netegem la línia del scanner per evitar un bucle infinit
-            }
-
-        } while (!martir);
-
-        // Mostrar l'estat actual dels jugadors després de la mort
-        System.out.println("Estat dels jugadors:");
-        for (int i = 0; i < jugadors.length; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.print(jugadors[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }*/
-
     public static void junter() {
         int idMartir = -1;
         boolean martir = false;
@@ -329,8 +279,24 @@ public class Main {
         }
     }
 
+    public static void junterBot() {
+
+        int randomMartir = 0;
+        boolean estaViu = false;
+
+        do {
+            randomMartir = random.nextInt(jugadors.length);
+            if (jugadors[randomMartir][2] == 1) {
+                estaViu = true;
+            }
+        }while (!estaViu);
+
+        jugadors[randomMartir][2] = 0;
+
+    }
+
     public static void main(String[] args) {
-        junter();
+
     }
 
 }
