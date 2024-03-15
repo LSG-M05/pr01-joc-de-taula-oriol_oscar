@@ -55,5 +55,29 @@
 ✔️ **Votar**, cada matí (en el joc), el jugador donarà el seu vot a través de la ID per a qui creu que ha de ser expulsat.<br>
 ✔️ **Autonomia** del programa per funcionar i automatizar les accions dels rols que restin després d'adjucar-li un a l'usuari.<br>
 
+<br>
+
+<h3>:card_index_dividers: Llistat de mètodes</h3>
+<br>
+
+    public static int buscarId(String buscar)
+    public static String rolUsuari()
+    public static String poderRols()
+    public static void nit()
+    public static void llop()
+    public static void cupido()
+    public static void junter()
+    public static void junterRandom()
+    public static void llopRandom()
+    public static void cupidoRandom()
+    public static void pauses()
+    public static void resultats()
+
   
+</div>
+
+<hr>
+
+<div align="center">
+    <img src="https://media.giphy.com/media/5VfNPyYqdiMCHWwPmo/giphy.gif" alt="GIF" width="200" height="200" style="margin-left: 20px;">
 </div>
