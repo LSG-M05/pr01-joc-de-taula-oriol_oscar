@@ -116,7 +116,6 @@ El programa guarda tots els jugadors, i les seves dades en **una única matriu**
     public static void cupidoRandom()
     public static void pauses()
     public static void resultats()
-    <br>
     
   El mètode *__junter__* fa referència al rol de caçador.
 
