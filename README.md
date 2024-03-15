@@ -28,7 +28,7 @@
   <tr>
     <td>Sense poders especials, hauran d'utilitzar l'enginy per derrotar al llop.</td>
     <td>Si t'ha tocat llop, cada nit hauràs de triar una víctima, però vigila no t'expulsin del poble!</td>
-    <td>Si se't cruspeix un llop, o et fan fora els teus amics vilatans, encara et quedarà una bala. Utilitzala amb seny.</td>
+    <td>Si se't cruspeix un llop, o et fan fora els teus amics vilatans, encara et quedarà una bala. Utilitza-la amb seny.</td>
     <td>Comptes amb la fletxa per enamorar dos personatges. Si mor un, l'altre el seguirà!</td>
   </tr>
 </table>
