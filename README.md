@@ -104,18 +104,19 @@ El programa guarda tots els jugadors, i les seves dades en **una única matriu**
 <h3>:card_index_dividers: Llistat de mètodes</h3>
 <br>
 
-    public static int buscarId(String buscar)
-    public static String rolUsuari()
-    public static String poderRols()
-    public static void nit()
-    public static void llop()
-    public static void cupido()
-    public static void junter()
+    public static int buscarId(String buscar) → Aquest mètode el que fa és retornar la posició del diccionari sobre el que volem buscar.
+    public static String rolUsuari() → Aquest mètode converteix els ID's dels usuaris en un String amb el nom del seu rol.
+    public static String poderRols() → Aquest mètode retorna els noms dels poders dels rols (convertits abans en el métode rolUsuari()) en funció de cada rol.
+    public static void nit() → Aquest mètode el que fa es executar tots els rols que actuen a la nit.
+    public static void llop() → Aquest es el mètode del personatge del llop.
+    public static void cupido() → Aquest es el mètode del personatge del cupido.
+    public static void junter() → Aquest es el mètode del personatge del caçador.
+    Els mètodes amb Random són els mètodes dels personatges quan són encarnats per la màquina:
     public static void junterRandom()
     public static void llopRandom()
     public static void cupidoRandom()
-    public static void pauses()
-    public static void resultats()
+    public static void pauses() → Mètode per que el joc sigui més seqüencial i a un ritme controlat per l'usuari. Permet seguir el joc pitjant la tecla enter.
+    public static void resultats() → Mètode que mostra els guanyadors de la partida.
     
   El mètode *__junter__* fa referència al rol de caçador.
 
