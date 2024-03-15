@@ -32,3 +32,18 @@
     <td>Comptes amb la fletxa per enamorar dos personatges. Si mor un, l'altre el segueirà!</td>
   </tr>
 </table>
+<br />
+
+<h3>:1st_place_medal: Com es guanya?</h3>
+
+  **Objectiu del llop:** Eliminar tots els jugadors abans de ser descobert.
+  <br />
+  **Objectiu dels demés rols:** Col·laborar per expulsar al llop del poble.
+
+</div>
+
+<hr />
+
+<!-- Funcionalitats -->
+
+<h2>Funcionalitats</h2>
