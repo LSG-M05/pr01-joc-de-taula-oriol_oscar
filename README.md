@@ -32,7 +32,6 @@
     <td>Comptes amb la fletxa per enamorar dos personatges. Si mor un, l'altre el seguirà!</td>
   </tr>
 </table>
-<br />
 
 <h3>:1st_place_medal: Com es guanya?</h3>
 
@@ -54,8 +53,6 @@
 ✔️ **Matar**, en cas de ser llop o caçador, el jugador escollirà un jugador a través de la seva ID per matar-lo.<br>
 ✔️ **Votar**, cada matí (en el joc), el jugador donarà el seu vot a través de la ID per a qui creu que ha de ser expulsat.<br>
 ✔️ **Autonomia** del programa per funcionar i automatizar les accions dels rols que restin després d'adjucar-li un a l'usuari.<br>
-
-<br>
 
 <h3>:card_index_dividers: Llistat de mètodes</h3>
 <br>
