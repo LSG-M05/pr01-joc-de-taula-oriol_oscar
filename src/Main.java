@@ -279,7 +279,7 @@ public class Main {
         }
     }
 
-    public static void junterBot() {
+    public static void junterRandom() {
 
         int randomMartir = 0;
         boolean estaViu = false;
@@ -292,6 +292,20 @@ public class Main {
         }while (!estaViu);
 
         jugadors[randomMartir][2] = 0;
+
+    }
+
+    public static void pauses() {
+
+        String enterKey = "enter";
+
+        System.out.println("\n*** Prem ENTER per continuar. ***\n");
+        enterKey = scanner.nextLine();
+
+        if (enterKey == "") {
+            System.out.println(" ");
+        }
+
 
     }
 
