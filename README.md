@@ -47,3 +47,13 @@
 <!-- Funcionalitats -->
 
 <h2>Funcionalitats</h2>
+<div>
+
+✔️ **Menú** on l'usuari podrà triar si jugar una partida, veure els rols que ofereix el joc amb la seva informació o sortir.<br>
+✔️ **Enamorar**, en el cas de que el jugador sigui cupido podrà escollir dos jugadors (bots) a partir de la seva ID per enamorar-los.<br>
+✔️ **Matar**, en cas de ser llop o caçador, el jugador escollirà un jugador a través de la seva ID per matar-lo.<br>
+✔️ **Votar**, cada matí (en el joc), el jugador donarà el seu vot a través de la ID per a qui creu que ha de ser expulsat.<br>
+✔️ **Autonomia** del programa per funcionar i automatizar les accions dels rols que restin després d'adjucar-li un a l'usuari.<br>
+
+  
+</div>
