@@ -22,14 +22,14 @@
   <tr>
     <th>:woman_farmer: 3 Vilatans :woman_farmer:</th>
     <th>:wolf: 1 Llop :wolf:</th>
-    <th>:gun: 1 Caçador :gun:</th>
     <th>:cupid: 1 Cupido :cupid:</th>
+    <th>:gun: 1 Caçador :gun:</th>
   </tr>
   <tr>
     <td>Sense poders especials, hauran d'utilitzar l'enginy per derrotar al llop.</td>
     <td>Si t'ha tocat llop, cada nit hauràs de triar una víctima, però vigila no t'expulsin del poble!</td>
-    <td>Si se't cruspeix un llop, o et fan fora els teus amics vilatans, encara et quedarà una bala. Utilitza-la amb seny.</td>
     <td>Comptes amb la fletxa per enamorar dos personatges. Si mor un, l'altre el seguirà!</td>
+    <td>Si se't cruspeix un llop, o et fan fora els teus amics vilatans, encara et quedarà una bala. Utilitza-la amb seny.</td>
   </tr>
 </table>
 
