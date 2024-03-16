@@ -33,10 +33,10 @@ public class Main {
     public static int[][] jugadors = {
             { 0 , 1 , 1 , 0 },
             { 1 , 1 , 1 , 0 },
-            { 2 , 2 , 1 , 0 },
-            { 3 , 3 , 1 , 0 },
-            { 4 , 4 , 1 , 0 },
-            { 5 , 1 , 1 , 0 }
+            { 2 , 1 , 1 , 0 },
+            { 3 , 2 , 1 , 0 },
+            { 4 , 3 , 1 , 0 },
+            { 5 , 4 , 1 , 0 }
     };
 
     /**
@@ -316,14 +316,14 @@ public class Main {
             }
         }
         pauses();
-        System.out.println("Ara és el moment de fer les votacions, aixi que ens has de dir qui creus que es el posible llop i a qui vols expulsar de la partida.");
+        System.out.println("Ara és el moment de fer les votacions, aixi que ens has de dir qui creus que es el possible llop i a qui vols expulsar de la partida.");
         System.out.println("Ara mateix queden aquests jugadors vius:");
         for( int i = 0 ;  i < jugadors.length ; i++ ){
             if ( jugadors[i][2]  == 1 && jugadors[i][0] != idUsuari ){
                 System.out.println(jugadors[i][0]);
             }
         }
-        System.out.println("L'ID del teu jugador és " + idUsuari);
+        System.out.println("Recorda! L'ID del teu jugador és " + idUsuari);
         boolean jugadorExpulsat = false;
         boolean jugadorTrobat = false;
         pauses();
@@ -416,7 +416,9 @@ public class Main {
             if (jugadors[i][1] != 2 && jugadors[i][2] == 1) {
                 sumVius++;
             }
+        }
 
+        for (int i = 0; i < jugadors.length; i++) {
             if (jugadors[i][1] == 2 && jugadors[i][2] == 0) {
                 guanyadors = "VILATANS";
                 fiPartida = true;
@@ -436,6 +438,12 @@ public class Main {
 
     }
 
+    public static void primerDia() {
+        System.out.println("\uD83C\uDF04 Espero que hagis passat un bon primer dia a la Vila de Fuenteovejuna. \uD83C\uDF04\n");
+        System.out.println("Ara ja és hora d'anar a dormir, però vigila, les nits són una mica mogudes en aquest poble...");
+        System.out.println("                                        \uD83D\uDC80\uD83D\uDC80\uD83D\uDC80");
+    }
+
     public static void partida(){
         do {
 
@@ -443,10 +451,12 @@ public class Main {
                 nit();
                 pauses();
                 resultats();
-            } else {
+            } else if (contadorPartida % 2 != 0 && contadorPartida != 1) {
                 dia();
                 pauses();
                 resultats();
+            } else if (contadorPartida == 1) {
+                primerDia();
             }
             contadorPartida++;
 
