@@ -32,9 +32,10 @@ public class Main {
     public static int[][] jugadors = {
             { 0 , 1 , 1 , 0 },
             { 1 , 1 , 1 , 0 },
-            { 2 , 2 , 1 , 0 },
-            { 3 , 3 , 1 , 0 },
-            { 4 , 4 , 1 , 0 },
+            { 2 , 1 , 1 , 0 },
+            { 3 , 2 , 0 , 0 },
+            { 4 , 3 , 1 , 0 },
+            { 5 , 4 , 1 , 0 },
     };
 
     /**
@@ -309,8 +310,39 @@ public class Main {
 
     }
 
-    public static void main(String[] args) {
+    public static void resultats() {
 
+        String guanyadors = "";
+        int sumVius = 0;
+        boolean fiPartida = false;
+
+        for (int i = 0; i < jugadors.length; i++) {
+            // Calcular jugadors NO llop vius / morts:
+            if (jugadors[i][1] != 2 && jugadors[i][2] == 1) {
+                sumVius++;
+            }
+
+            if (jugadors[i][1] == 2 && jugadors[i][2] == 0) {
+                guanyadors = "VILATANS";
+                fiPartida = true;
+
+            } else if (jugadors[i][1] == 2 && sumVius <= 1) {
+                guanyadors = "LLOP";
+                fiPartida = true;
+
+            }
+        }
+
+        if (fiPartida) {
+            System.out.println("S'ha acabat la partida!");
+            System.out.println("La victòria és per...\n");
+            System.out.println("    \u2728\u2728\u2728 " + guanyadors + " \u2728\u2728\u2728 \n");
+        }
+
+    }
+
+    public static void main(String[] args) {
+        resultats();
     }
 
 }
