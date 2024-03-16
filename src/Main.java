@@ -294,7 +294,14 @@ public class Main {
 
     }
 
+    public static void primerDia() {
+        System.out.println("\uD83C\uDF04 Espero que hagis passat un bon primer dia a la Vila de Fuenteovejuna. \uD83C\uDF04\n");
+        System.out.println("Ara ja és hora d'anar a dormir, però vigila, les nits són una mica mogudes en aquest poble...");
+        System.out.println("                                        \uD83D\uDC80\uD83D\uDC80\uD83D\uDC80");
+    }
+
     public static void dia(){
+        System.out.println("        \uD83C\uDF19\uD83C\uDF19\uD83C\uDF19\n");
         System.out.println("La nit ha acabat, i això ha sigut el que ha pasat.");
         System.out.println("Ha mort el jugador amb l'ID " + idDerrerJugadorMort + " i el seu rol era " + rolUsuari(jugadors[idDerrerJugadorMort][1]));
         if(jugadors[idDerrerJugadorMort][3] == 1){
@@ -436,12 +443,6 @@ public class Main {
             System.out.println("    \u2728\u2728\u2728 " + guanyadors + " \u2728\u2728\u2728 \n");
         }
 
-    }
-
-    public static void primerDia() {
-        System.out.println("\uD83C\uDF04 Espero que hagis passat un bon primer dia a la Vila de Fuenteovejuna. \uD83C\uDF04\n");
-        System.out.println("Ara ja és hora d'anar a dormir, però vigila, les nits són una mica mogudes en aquest poble...");
-        System.out.println("                                        \uD83D\uDC80\uD83D\uDC80\uD83D\uDC80");
     }
 
     public static void partida(){
