@@ -33,7 +33,7 @@ public class Main {
             { 0 , 1 , 1 , 0 },
             { 1 , 1 , 1 , 0 },
             { 2 , 1 , 1 , 0 },
-            { 3 , 2 , 0 , 0 },
+            { 3 , 2 , 1 , 0 },
             { 4 , 3 , 1 , 0 },
             { 5 , 4 , 1 , 0 },
     };
@@ -181,11 +181,11 @@ public class Main {
         int enamorat1 = 0;
         int enamorat2 = 0;
 
-        System.out.println("Hola Cupido, has de triar els dos jugadors enamorats!");
-        System.out.println("Hauràs de triar entre les IDs de tots els jugadors, la teva també.");
+        System.out.println("\uD83D\uDC98 Hola Cupido, has de triar els dos jugadors enamorats! \uD83D\uDC98 \n");
+        System.out.println("Hauràs de triar entre les IDs de tots els jugadors, si vol la teva, també.");
 
         do {
-            System.out.println("Tria un número del 0 al 4 per seleccionar la ID del primer enamorat: ");
+            System.out.println("Tria un número del 0 al 5 per seleccionar la ID del primer enamorat: ");
 
             if (scanner.hasNextInt()) {
                 enamorat1 = scanner.nextInt();
@@ -197,7 +197,7 @@ public class Main {
         } while (enamorat1 > 4 || enamorat1 < 0);
 
         do {
-            System.out.println("Tria un altre número (diferent) del 0 al 4 per la ID del segon enamorat: ");
+            System.out.println("Tria un altre número (diferent) del 0 al 5 per la ID del segon enamorat: ");
 
             if (scanner.hasNextInt()) {
                 enamorat2 = scanner.nextInt();
@@ -226,12 +226,12 @@ public class Main {
         int idMartir = -1;
         boolean martir = false;
 
-        System.out.println("T'han matat, tria la ID d'un jugador viu per efectuar la teva venjança.");
+        System.out.println("\uD83D\uDD2B T'han matat, tria la ID d'un jugador viu per efectuar la teva venjança. \uD83D\uDD2B\n");
         System.out.println("Aquestes són les IDs dels jugadors vius, escull sàviament: ");
 
         for (int i = 0; i < jugadors.length; i++) {
             if (jugadors[i][2] == 1 && jugadors[i][0] != idUsuari) {
-                System.out.println(jugadors[i][0]);
+                System.out.print(jugadors[i][0] + ", ");
             }
         }
 
@@ -300,7 +300,7 @@ public class Main {
 
         String enterKey = "enter";
 
-        System.out.println("\n*** Prem ENTER per continuar. ***\n");
+        System.out.println("\n\uD83D\uDCDC Prem ENTER per continuar. \uD83D\uDCDC\n");
         enterKey = scanner.nextLine();
 
         if (enterKey == "") {
@@ -342,7 +342,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        resultats();
+        junter();
     }
 
 }
