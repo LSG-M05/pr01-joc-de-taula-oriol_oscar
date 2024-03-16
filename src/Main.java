@@ -21,6 +21,7 @@ public class Main {
                 2 --> Lobo (1)
                 3 --> Cupído (1)
                 4 --> Junter (1)
+                5 --> Aledeano (2)
 
             ESTA_VIU -->
                 El número 1 vol dir que el jugador està viu, i el 0 vol dir que està mort.
@@ -35,6 +36,7 @@ public class Main {
             { 2 , 2 , 1 , 0 },
             { 3 , 3 , 1 , 0 },
             { 4 , 4 , 1 , 0 },
+            { 5 , 1 , 1 , 0 }
     };
 
     /**
@@ -59,23 +61,22 @@ public class Main {
      * Aquest array jugadorExpulsat, conté els jugadors que ja no participan en
      * la partida, ordenats per ordre d'expulsió / mort.
      */
-    public static int[] jugadorExpulsat = new int[1];
+    public static int idJugadorExpulsat = -1;
 
     /**
      * Aqueste int el que fa es retornar l'ID del usuari.
      */
-    public static int idUsuari = random.nextInt(jugadors.length);
+    public static int idUsuari = /*random.nextInt(jugadors.length);*/ 2;
     public static int idDerrerJugadorMort = -1;
     public static int contadorPartida = 0;
     public static boolean continuaPartida = true;
-
     /**
      * Aquest métode converteix els ID's dels usuaris en un String amb el nom del seu rol
      * @return retorna el nóm del rol de l'usuari.
      */
     public static String rolUsuari(int idRolADescubrir){
         return switch (idRolADescubrir) {
-            case 0, 1 -> "Aledano";
+            case 0, 1, 5 -> "Aledano";
             case 2 -> "Lobo";
             case 3 -> "Cupido";
             case 4 -> "Junter";
@@ -95,7 +96,7 @@ public class Main {
      */
     public static String poderRols(int idRolADescubrir){
         return switch (idRolADescubrir) {
-            case 0, 1 -> "";
+            case 0, 1, 5 -> "";
             case 2 -> "Matar";
             case 3 -> "Enamorar";
             case 4 -> "Vengança";
@@ -189,7 +190,7 @@ public class Main {
             System.out.println("A part de aquesta mort, aquest jugador estaba enamorat d'un altre jugador, aixi que també hi ha una altre mort...");
             for(int i = 0 ; i < jugadors.length ; i++ ){
                 if(jugadors[i][3] == 1 && idDerrerJugadorMort != i){
-                    System.out.println("L'altre jugador mort és el jugador amb l'ID " + i + " i el seu rol era " + jugadors[i][1]);
+                    System.out.println("L'altre jugador mort és el jugador amb l'ID " + i + " i el seu rol era " + rolUsuari(jugadors[i][1]));
                 }
             }
         }
@@ -200,6 +201,38 @@ public class Main {
                 System.out.println(rolUsuari(jugadors[i][0]));
             }
         }
+        System.out.println("Ara és el moment de fer les votacions, aixi que ens has de dir qui creus que es el posible llop i a qui vols expulsar de la partida.");
+        System.out.println("Ara mateix queden aquests jugadors vius:");
+        for( int i = 0 ;  i < jugadors.length ; i++ ){
+            if ( jugadors[i][2]  == 1 && jugadors[i][0] != idUsuari ){
+                System.out.println(jugadors[i][0]);
+            }
+        }
+        System.out.println("L'ID del teu jugador és " + idUsuari);
+        boolean jugadorExpulsat = false;
+        boolean jugadorTrobat = false;
+
+        do {
+            if(scanner.hasNextInt()){
+                idJugadorExpulsat = scanner.nextInt();
+                for (int i = 0; i < jugadors.length; i++) {
+                    if(jugadors[i][0] == idJugadorExpulsat && jugadors[i][2] == 1 && idJugadorExpulsat != idUsuari){
+                        System.out.println("Hau triat expulsar al jugador " + idJugadorExpulsat);
+                        jugadors[i][2] = 0; // Corregir esta línea para usar 'i' en lugar de 'idJugadorMort'
+                        jugadorExpulsat = true;
+                        jugadorTrobat = true; // Indica que hemos encontrado y procesado al jugador
+                        break;
+                    }
+                }
+
+                if (!jugadorTrobat) { // Verificar después del bucle for
+                    System.out.println("No pots expulsar al jugador amb aquest ID");
+                }
+            } else {
+                System.out.println("No pots expulsar aquest jugador amb aquest ID, ha de ser un número enter, intenteu de nou :)");
+                scanner.nextLine();
+            }
+        } while (!jugadorExpulsat);
     }
 
     /**
@@ -239,6 +272,13 @@ public class Main {
                 scanner.nextLine();
             }
         } while (!jugadorMort);
+        if (jugadors[idDerrerJugadorMort][3] == 1){
+            for(int i=0; i<jugadors.length; i++){
+                if(jugadors[i][3] == 1 && jugadors[i][0] != idDerrerJugadorMort){
+                    jugadors[i][2] = 0;
+                }
+            }
+        }
     }
 
 
