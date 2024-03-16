@@ -40,6 +40,21 @@ public class Main {
     };
 
     /**
+     * Aquest array jugadorExpulsat, conté els jugadors que ja no participan en
+     * la partida, ordenats per ordre d'expulsió / mort.
+     */
+    public static int idJugadorExpulsat = -1;
+
+    /**
+     * Aqueste int el que fa es retornar l'ID del usuari.
+     */
+    public static int idUsuari = /*random.nextInt(jugadors.length)*/ 4;
+    public static int idDerrerJugadorMort = -1;
+    public static int contadorPartida = 0;
+    public static boolean continuaPartida = true;
+    public static int nits = 0;
+
+    /**
      * Aquest métode el que fa és retornar la posició del diccionari sobre el que volem buscar.
      * @param buscar Aquí posem el que volem buscar, ex: esta_viu seria = 2.
      * @return retorna un int amb la posició del element que volem buscar.
@@ -58,19 +73,6 @@ public class Main {
     }
 
     /**
-     * Aquest array jugadorExpulsat, conté els jugadors que ja no participan en
-     * la partida, ordenats per ordre d'expulsió / mort.
-     */
-    public static int idJugadorExpulsat = -1;
-
-    /**
-     * Aqueste int el que fa es retornar l'ID del usuari.
-     */
-    public static int idUsuari = /*random.nextInt(jugadors.length);*/ 2;
-    public static int idDerrerJugadorMort = -1;
-    public static int contadorPartida = 0;
-    public static boolean continuaPartida = true;
-    /**
      * Aquest métode converteix els ID's dels usuaris en un String amb el nom del seu rol
      * @return retorna el nóm del rol de l'usuari.
      */
@@ -85,11 +87,6 @@ public class Main {
     }
 
     /**
-     * Aquest int és un contador de les nits.
-     */
-    public static int nits = 0;
-
-    /**
      * Aquest métode retorna els noms dels poders dels rols ( convertits abans en el métode rolUsuari()
      * en funció de cada rol.
      * @return retorna un String amb el nom del poder.
@@ -102,137 +99,6 @@ public class Main {
             case 4 -> "Vengança";
             default -> "";
         };
-    }
-
-    /**
-     * @return Métode el Desenvolupament
-     */
-
-    public static void nit(){
-
-        int rolJugadorPrincipal = jugadors[idUsuari][1];
-        int idJugadorPrincipal = idUsuari;
-        int nitPartida = nits;
-        boolean ha_enamorat = false;
-
-        if ( nitPartida == 0 ){
-            // Hi ha cupido
-            switch (poderRols(idJugadorPrincipal)){
-                case "Matar":
-                    llop();
-                    cupidoRandom();
-                    break;
-                case "Enamorar":
-                    llopRandom();
-                    cupido();
-                    ha_enamorat = true;
-                    break;
-                case "":
-                case "Venganza":
-                default:
-                    llopRandom();
-                    break;
-            }
-        } else{
-            switch (poderRols(idJugadorPrincipal)){
-                case "Matar":
-                    llop();
-                    break;
-                case "Enamorar":
-                case "":
-                case "Venganza":
-                default:
-                    llopRandom();
-                    break;
-            }
-        }
-
-    }
-
-    public static void llopRandom(){
-        int randomMort = 0;
-        boolean estaViu = false;
-        do{
-            randomMort = random.nextInt(jugadors.length);
-            if ( jugadors[randomMort][2] == 1) {
-                estaViu = true;
-            }
-        } while (!estaViu);
-
-        jugadors[randomMort][2] = 0;
-        idDerrerJugadorMort = randomMort;
-    }
-
-    public static void cupidoRandom(){
-        int randomCupido1 = 0;
-        int randomCupido2 = 0;
-
-        randomCupido1 = random.nextInt(jugadors.length);
-
-        boolean estaEnamorat = false;
-        do{
-            randomCupido2 = random.nextInt(jugadors.length);
-            if ( jugadors[randomCupido1][0] != jugadors[randomCupido2][0]) {
-                estaEnamorat = true;
-            }
-        } while (!estaEnamorat);
-
-
-        jugadors[randomCupido1][3] = 1;
-        jugadors[randomCupido2][3] = 1;
-
-    }
-
-    public static void dia(){
-        System.out.println("La nit ha acabat, i això ha sigut el que ha pasat.");
-        System.out.println("Ha mort el jugador amb l'ID " + idDerrerJugadorMort + " i el seu rol era " + rolUsuari(jugadors[idDerrerJugadorMort][1]));
-        if(jugadors[idDerrerJugadorMort][3] == 1){
-            System.out.println("A part de aquesta mort, aquest jugador estaba enamorat d'un altre jugador, aixi que també hi ha una altre mort...");
-            for(int i = 0 ; i < jugadors.length ; i++ ){
-                if(jugadors[i][3] == 1 && idDerrerJugadorMort != i){
-                    System.out.println("L'altre jugador mort és el jugador amb l'ID " + i + " i el seu rol era " + rolUsuari(jugadors[i][1]));
-                }
-            }
-        }
-        //junter();
-        System.out.println("Ara mateix queden els jugadors amb aquests rols encara:");
-        for( int i = 0 ;  i < jugadors.length ; i++ ){
-            if ( jugadors[i][2]  == 1 ){
-                System.out.println(rolUsuari(jugadors[i][0]));
-            }
-        }
-        System.out.println("Ara és el moment de fer les votacions, aixi que ens has de dir qui creus que es el posible llop i a qui vols expulsar de la partida.");
-        System.out.println("Ara mateix queden aquests jugadors vius:");
-        for( int i = 0 ;  i < jugadors.length ; i++ ){
-            if ( jugadors[i][2]  == 1 && jugadors[i][0] != idUsuari ){
-                System.out.println(jugadors[i][0]);
-            }
-        }
-        System.out.println("L'ID del teu jugador és " + idUsuari);
-        boolean jugadorExpulsat = false;
-        boolean jugadorTrobat = false;
-
-        do {
-            if(scanner.hasNextInt()){
-                idJugadorExpulsat = scanner.nextInt();
-                for (int i = 0; i < jugadors.length; i++) {
-                    if(jugadors[i][0] == idJugadorExpulsat && jugadors[i][2] == 1 && idJugadorExpulsat != idUsuari){
-                        System.out.println("Hau triat expulsar al jugador " + idJugadorExpulsat);
-                        jugadors[i][2] = 0; // Corregir esta línea para usar 'i' en lugar de 'idJugadorMort'
-                        jugadorExpulsat = true;
-                        jugadorTrobat = true; // Indica que hemos encontrado y procesado al jugador
-                        break;
-                    }
-                }
-
-                if (!jugadorTrobat) { // Verificar después del bucle for
-                    System.out.println("No pots expulsar al jugador amb aquest ID");
-                }
-            } else {
-                System.out.println("No pots expulsar aquest jugador amb aquest ID, ha de ser un número enter, intenteu de nou :)");
-                scanner.nextLine();
-            }
-        } while (!jugadorExpulsat);
     }
 
     /**
@@ -281,6 +147,19 @@ public class Main {
         }
     }
 
+    public static void llopRandom(){
+        int randomMort = 0;
+        boolean estaViu = false;
+        do{
+            randomMort = random.nextInt(jugadors.length);
+            if ( jugadors[randomMort][2] == 1) {
+                estaViu = true;
+            }
+        } while (!estaViu);
+
+        jugadors[randomMort][2] = 0;
+        idDerrerJugadorMort = randomMort;
+    }
 
     /**
      * Aquest es el mètode del Cupido
@@ -331,6 +210,26 @@ public class Main {
 
     }
 
+    public static void cupidoRandom(){
+        int randomCupido1 = 0;
+        int randomCupido2 = 0;
+
+        randomCupido1 = random.nextInt(jugadors.length);
+
+        boolean estaEnamorat = false;
+        do{
+            randomCupido2 = random.nextInt(jugadors.length);
+            if ( jugadors[randomCupido1][0] != jugadors[randomCupido2][0]) {
+                estaEnamorat = true;
+            }
+        } while (!estaEnamorat);
+
+
+        jugadors[randomCupido1][3] = 1;
+        jugadors[randomCupido2][3] = 1;
+
+    }
+
     public static void junter() {
         int idMartir = -1;
         boolean martir = false;
@@ -340,7 +239,7 @@ public class Main {
 
         for (int i = 0; i < jugadors.length; i++) {
             if (jugadors[i][2] == 1 && jugadors[i][0] != idUsuari) {
-                System.out.print(jugadors[i][0] + ", ");
+                System.out.println(jugadors[i][0]);
             }
         }
 
@@ -377,29 +276,6 @@ public class Main {
             }
 
         } while (!martir);
-
-        // Mostrar l'estat actual dels jugadors després de la mort
-        System.out.println("Estat dels jugadors:");
-
-        for (int i = 0; i < jugadors.length; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.print(jugadors[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    public static void partida(){
-        do {
-
-            if (contadorPartida % 2 == 0) {
-                nit();
-            } else {
-                dia();
-            }
-            contadorPartida++;
-
-        }while (continuaPartida);
     }
 
     public static void junterRandom() {
@@ -418,11 +294,108 @@ public class Main {
 
     }
 
+    public static void dia(){
+        System.out.println("La nit ha acabat, i això ha sigut el que ha pasat.");
+        System.out.println("Ha mort el jugador amb l'ID " + idDerrerJugadorMort + " i el seu rol era " + rolUsuari(jugadors[idDerrerJugadorMort][1]));
+        if(jugadors[idDerrerJugadorMort][3] == 1){
+            System.out.println("A part de aquesta mort, aquest jugador estaba enamorat d'un altre jugador, aixi que també hi ha una altre mort...");
+            for(int i = 0 ; i < jugadors.length ; i++ ){
+                if(jugadors[i][3] == 1 && idDerrerJugadorMort != i){
+                    System.out.println("L'altre jugador mort és el jugador amb l'ID " + i + " i el seu rol era " + rolUsuari(jugadors[i][1]));
+                }
+            }
+        }
+        pauses();
+        if(Objects.equals(poderRols(idUsuari), "Junter")){
+            junter();
+        }
+        System.out.println("Ara mateix queden els jugadors amb aquests rols encara:");
+        for( int i = 0 ;  i < jugadors.length ; i++ ){
+            if ( jugadors[i][2]  == 1 ){
+                System.out.println(rolUsuari(jugadors[i][0]));
+            }
+        }
+        pauses();
+        System.out.println("Ara és el moment de fer les votacions, aixi que ens has de dir qui creus que es el posible llop i a qui vols expulsar de la partida.");
+        System.out.println("Ara mateix queden aquests jugadors vius:");
+        for( int i = 0 ;  i < jugadors.length ; i++ ){
+            if ( jugadors[i][2]  == 1 && jugadors[i][0] != idUsuari ){
+                System.out.println(jugadors[i][0]);
+            }
+        }
+        System.out.println("L'ID del teu jugador és " + idUsuari);
+        boolean jugadorExpulsat = false;
+        boolean jugadorTrobat = false;
+        pauses();
+        do {
+            if(scanner.hasNextInt()){
+                idJugadorExpulsat = scanner.nextInt();
+                for (int i = 0; i < jugadors.length; i++) {
+                    if(jugadors[i][0] == idJugadorExpulsat && jugadors[i][2] == 1 && idJugadorExpulsat != idUsuari){
+                        System.out.println("Hau triat expulsar al jugador " + idJugadorExpulsat);
+                        jugadors[i][2] = 0; // Corregir esta línea para usar 'i' en lugar de 'idJugadorMort'
+                        jugadorExpulsat = true;
+                        jugadorTrobat = true; // Indica que hemos encontrado y procesado al jugador
+                        break;
+                    }
+                }
+
+                if (!jugadorTrobat) { // Verificar después del bucle for
+                    System.out.println("No pots expulsar al jugador amb aquest ID");
+                }
+            } else {
+                System.out.println("No pots expulsar aquest jugador amb aquest ID, ha de ser un número enter, intenteu de nou :)");
+                scanner.nextLine();
+            }
+        } while (!jugadorExpulsat);
+    }
+
+    public static void nit(){
+
+        int rolJugadorPrincipal = jugadors[idUsuari][1];
+        int idJugadorPrincipal = idUsuari;
+        int nitPartida = nits;
+        boolean ha_enamorat = false;
+
+        if ( nitPartida == 0 ){
+            // Hi ha cupido
+            switch (poderRols(idJugadorPrincipal)){
+                case "Matar":
+                    llop();
+                    cupidoRandom();
+                    break;
+                case "Enamorar":
+                    llopRandom();
+                    cupido();
+                    ha_enamorat = true;
+                    break;
+                case "":
+                case "Venganza":
+                default:
+                    llopRandom();
+                    break;
+            }
+        } else{
+            switch (poderRols(idJugadorPrincipal)){
+                case "Matar":
+                    llop();
+                    break;
+                case "Enamorar":
+                case "":
+                case "Venganza":
+                default:
+                    llopRandom();
+                    break;
+            }
+        }
+
+    }
+
     public static void pauses() {
 
         String enterKey = "enter";
 
-        System.out.println("\n\uD83D\uDCDC Prem ENTER per continuar. \uD83D\uDCDC\n");
+        System.out.println("\n\uD83D\uDCDC Prem ENTER per continuar. \uD83D\uDCDC");
         enterKey = scanner.nextLine();
 
         if (enterKey == "") {
@@ -461,6 +434,23 @@ public class Main {
             System.out.println("    \u2728\u2728\u2728 " + guanyadors + " \u2728\u2728\u2728 \n");
         }
 
+    }
+
+    public static void partida(){
+        do {
+
+            if (contadorPartida % 2 == 0) {
+                nit();
+                pauses();
+                resultats();
+            } else {
+                dia();
+                pauses();
+                resultats();
+            }
+            contadorPartida++;
+
+        }while (continuaPartida);
     }
 
     public static void main(String[] args) {
