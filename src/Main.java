@@ -1,3 +1,5 @@
+// Oscar Cruañas i Oriol Fontcuberta
+
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
