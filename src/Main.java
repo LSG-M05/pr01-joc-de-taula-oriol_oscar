@@ -48,13 +48,15 @@ public class Main {
     /**
      * Aqueste int el que fa es retornar l'ID del usuari.
      */
-    public static int idUsuari = /*random.nextInt(jugadors.length)*/ 3;
+    public static int idUsuari = random.nextInt(jugadors.length);
     public static int idDerrerJugadorMort = -1;
     public static int contadorPartida = 1;
     public static boolean continuaPartida = true;
     public static int nits = 0;
     public static boolean enamorats = false;
     public static boolean junterExecutat = false;
+    public static boolean fiPartida = false;
+
 
 
     /**
@@ -148,6 +150,7 @@ public class Main {
                 }
             }
         }
+        resultats();
     }
 
     public static void llopRandom(){
@@ -159,7 +162,7 @@ public class Main {
                 estaViu = true;
             }
         } while (!estaViu);
-
+        resultats();
         jugadors[randomMort][2] = 0;
         idDerrerJugadorMort = randomMort;
     }
@@ -206,13 +209,6 @@ public class Main {
             jugadors[enamorat2][3] = 1;
             enamorats = true;
 
-
-            for (int i = 0; i < jugadors.length; i++) {
-                for (int x = 0; x < 4; x++) {
-                    System.out.print(jugadors[i][x] + " ");
-                }
-                System.out.println();
-            }
         }
 
     }
@@ -301,7 +297,7 @@ public class Main {
 
             do {
                 randomMartir = random.nextInt(jugadors.length);
-                if (jugadors[randomMartir][2] == 1) {
+                if (jugadors[randomMartir][2] == 1 && randomMartir != 4) {
                     estaViu = true;
                     System.out.println("Com m'he mort i era el Junter decideixo matar al jugador amb l'ID " + randomMartir);
                 }
@@ -313,12 +309,6 @@ public class Main {
     }
 
     public static void primerDia() {
-        for (int i=0; i<jugadors.length; i++){
-            for (int x=0; x<4; x++){
-                System.out.print(jugadors[i][x]);
-            }
-            System.out.println();
-        }
         System.out.println("El teu rol és " + rolUsuari(idUsuari) + " i el teu ID és el " + idUsuari);
         System.out.println("\uD83C\uDF04 Espero que hagis passat un bon primer dia a la Vila de Fuenteovejuna. \uD83C\uDF04\n");
         System.out.println("Ara ja és hora d'anar a dormir, però vigila, les nits són una mica mogudes en aquest poble...");
@@ -327,12 +317,6 @@ public class Main {
     }
 
     public static void dia(){
-        for (int i=0; i<jugadors.length; i++){
-            for (int x=0; x<4; x++){
-                System.out.print(jugadors[i][x]);
-            }
-            System.out.println();
-        }
         System.out.println("        \uD83C\uDF19\uD83C\uDF19\uD83C\uDF19\n");
         System.out.println("La nit ha acabat, i això ha sigut el que ha pasat.");
         System.out.println("Ha mort el jugador amb l'ID " + idDerrerJugadorMort + " i el seu rol era " + rolUsuari(jugadors[idDerrerJugadorMort][1]));
@@ -349,6 +333,7 @@ public class Main {
                             junterRandom();
                         }
                     }
+                    resultats();
                 }
             }
         }
@@ -359,6 +344,7 @@ public class Main {
                 junterRandom();
             }
         }
+        resultats();
         pauses();
         System.out.println("Ara mateix queden els jugadors amb aquests rols encara:");
         for( int i = 0 ;  i < jugadors.length ; i++ ){
@@ -383,6 +369,14 @@ public class Main {
                 for (int i = 0; i < jugadors.length; i++) {
                     if(jugadors[i][0] == idJugadorExpulsat && jugadors[i][2] == 1 && idJugadorExpulsat != idUsuari){
                         System.out.println("Hau triat expulsar al jugador " + idJugadorExpulsat);
+                        if(jugadors[idJugadorExpulsat][1] == 4  ){
+                            if(idJugadorExpulsat == idUsuari) {
+                                junter();
+                            } else {
+                                junterRandom();
+                            }
+                        }
+                        resultats();
                         if(jugadors[idJugadorExpulsat][3] == 1){
                             for(int x=0; x<jugadors.length; x++){
                                 if(jugadors[x][3] == 1 && x != idJugadorExpulsat){
@@ -392,6 +386,7 @@ public class Main {
                                 }
                             }
                         }
+                        resultats();
                         jugadors[i][2] = 0; // Corregir esta línea para usar 'i' en lugar de 'idJugadorMort'
                         jugadorExpulsat = true;
                         jugadorTrobat = true; // Indica que hemos encontrado y procesado al jugador
@@ -407,6 +402,7 @@ public class Main {
                 scanner.nextLine();
             }
         } while (!jugadorExpulsat);
+        resultats();
     }
 
     public static void nit(){
@@ -492,12 +488,12 @@ public class Main {
             System.out.println("S'ha acabat la partida!");
             System.out.println("La victòria és per...\n");
             System.out.println("    \u2728\u2728\u2728 " + guanyadors + " \u2728\u2728\u2728 \n");
+            System.exit(0);
         }
-
     }
 
     public static void partida(){
-        while(jugadors[2][2] == 1 && jugadors[idUsuari][2] == 1){
+        while(!fiPartida){
             do {
                 if (contadorPartida % 2 == 0 && contadorPartida == 2) {
                     nit();
@@ -516,9 +512,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        while(jugadors[2][2] == 1 && jugadors[idUsuari][2] == 1){
-            partida();
-        }
+        partida();
         resultats();
     }
 
