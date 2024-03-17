@@ -309,11 +309,14 @@ public class Main {
     }
 
     public static void primerDia() {
+        pauses();
         System.out.println("El teu rol és " + rolUsuari(idUsuari) + " i el teu ID és el " + idUsuari);
         System.out.println("\uD83C\uDF04 Espero que hagis passat un bon primer dia a la Vila de Fuenteovejuna. \uD83C\uDF04\n");
         System.out.println("Ara ja és hora d'anar a dormir, però vigila, les nits són una mica mogudes en aquest poble...");
         System.out.println("        \uD83D\uDC80\uD83D\uDC80\uD83D\uDC80");
+        System.out.println();
         pauses();
+
     }
 
     public static void dia(){
@@ -511,9 +514,44 @@ public class Main {
         }
     }
 
+    public static void instruccions(){
+        System.out.println("Objectiu del joc:\n");
+        System.out.println("Si ets llop, hauràs de matar als demés jugadors durant la nit. Un cada nit. Si els altres jugadors et voten, has perdut.");
+        System.out.println("Si no ets llop, hauràs d'expulsar al llop abans de que us mati a tots.\n");
+        System.out.println("Rols:\n");
+        System.out.println("Vilatà/Aldeano: No tens cap poder especial, hauràs de confiar en el teu instint per votar al llop.");
+        System.out.println("Llop: Cada nit, escolliràs una víctima a través de la seva ID.");
+        System.out.println("Cupido: Al principi de la partida, escolliràs a 2 jugadors (tu pots ser un d'ells) per enamorar-los. Si un es mor, l'altre també.");
+        System.out.println("Caçador: Si et maten, podràs triar un jugador al que matar.\n");
+    }
+
+    public static void menu() {
+
+        int opcioMenu = 0;
+
+        System.out.println("\uD83D\uDC3A El Llop \uD83D\uDC3A\n");
+        System.out.println("Escull una opció:\n[1] Jugar partida\n[2] Instruccions\n[3] Sortir");
+        opcioMenu = scanner.nextInt();
+
+        switch (opcioMenu) {
+            case 1:
+                partida();
+                resultats();
+                break;
+            case 2:
+                instruccions();
+                menu();
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Opció no vàlida.");
+                menu();
+        }
+
+    }
     public static void main(String[] args) {
-        partida();
-        resultats();
+        menu();
     }
 
 }
